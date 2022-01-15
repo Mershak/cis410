@@ -1,0 +1,3 @@
+/home/mert/Desktop/cis410/project1/CMakeFiles/proj1.dir
+/home/mert/Desktop/cis410/project1/CMakeFiles/edit_cache.dir
+/home/mert/Desktop/cis410/project1/CMakeFiles/rebuild_cache.dir
