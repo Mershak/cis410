@@ -212,7 +212,10 @@ void GetLogicalCellIndex(int *idx, int cellId, const int *dims)
 float
 EvaluateFieldAtLocation(const float *pt, const int *dims, 
                         const float *X, const float *Y, const float *F)
-{
+{   
+    if (pt[0] < 0 || pt[1] < 0){
+        return 0;
+    }
     int xP = -10;
     int yP = -10;
     for (int i = 0; i < dims[0]; i++){
@@ -273,7 +276,7 @@ float
 AreaForCell(const float *X, const float *Y, const int *dims, int cellId)
 {
     // IMPLEMENT ME!
-    if (cellId > GetNumberOfCells(dims) || cellId < 0){
+    if (cellId >= GetNumberOfCells(dims) || cellId < 0){
         return 0;
     }
     int idx[2];
