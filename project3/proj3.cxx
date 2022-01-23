@@ -301,9 +301,7 @@ void ApplyDifferenceColorMap(float F, unsigned char *RGB)
         RGB[0] = 255.0/2 + (1.0-F)*225.0;
         RGB[1] = 0.0 + (1.0-F)*2.0*255.0;
         RGB[2] = 0.0 + (1.0-F)*2.0*255.0;
-        // RGB[0] = 255.0 - (F-0.5)*255.0;
-        // RGB[1] = 255.0 - (F-0.5)*2.0*255.0;
-        // RGB[2] = 255.0 - (F-0.5)*2.0*225.0;
+
     }
 }
 
@@ -349,40 +347,22 @@ void ApplyHSVColorMap(float F, unsigned char *RGB)
     float t = value * ( 1 - saturation * ( 1 - f ) );      
 switch (i)
 		{
-		case 0:
-			r = v;
-			g = t;
-			b = p;
+		case 0: r = v; g = t; b = p;
 			break;
 
-		case 1:
-			r = q;
-			g = v;
-			b = p;
+		case 1: r = q; g = v; b = p;
 			break;
 
-		case 2:
-			r = p;
-			g = v;
-			b = t;
+		case 2: r = p; g = v; b = t;
 			break;
 
-		case 3:
-			r = p;
-			g = q;
-			b = v;
+		case 3: r = p; g = q; b = v;
 			break;
 
-		case 4:
-			r = t;
-			g = p;
-			b = v;
+		case 4: r = t; g = p; b = v;
 			break;
 
-		default:
-			r = v;
-			g = p;
-			b = q;
+		default: r = v; g = p; b = q;
 			break;
 		}
     RGB[0] = r*255;
