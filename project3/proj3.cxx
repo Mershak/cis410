@@ -295,10 +295,10 @@ void ApplyDifferenceColorMap(float F, unsigned char *RGB)
     if (F <= 0.5){
         RGB[0] = 255.0*(2.0*F);
         RGB[1] = 255.0*(2.0*F);
-        RGB[2] = 255.0/2.0 + 255.0*F;
+        RGB[2] = 255.0 * (0.5+F);
     }
     else{
-        RGB[0] = 255.0/2 + (1.0-F)*225.0;
+        RGB[0] = (1.5 - F) * 255.0;
         RGB[1] = 0.0 + (1.0-F)*2.0*255.0;
         RGB[2] = 0.0 + (1.0-F)*2.0*255.0;
 
@@ -407,11 +407,11 @@ int main()
         {
             // ITERATE OVER PIXELS
             float pt[2];
-            pt[0] = -9.0 + i*(18.0/500.0);
-            pt[1] = -9.0 + j*(18.0/500.0);
+            pt[0] = -9.0 + i*(18.0/499.0);
+            pt[1] = -9.0 + j*(18.0/499.0);
 
             float f = EvaluateFieldAtLocation(pt,dims,X,Y,F);
-            float normalizedF = (f-1.2)/ 3.8;
+            float normalizedF = (f-1.2)/ (5.02-1.2);
             // I TAKE OVER HERE
             int offset = 3*(j*nx+i);
             ApplyBlueHotColorMap(normalizedF, buffer[0]+offset);
