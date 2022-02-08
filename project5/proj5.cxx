@@ -299,7 +299,7 @@ int main()
     lup[6][0] = 1; lup[6][1] = 2; lup[6][2] = 0; lup[6][3] = 3;
     lup[7][0] = 2; lup[7][1] = 3; lup[7][2] = lup[7][3] = -1;
     lup[8][0] = 2; lup[8][1] = 3; lup[8][2] = lup[8][3] = -1;
-    lup[9][0] = 1; lup[9][1] = 2; lup[9][2] = 0; lup[9][3] = 3;
+    lup[9][0] = 0; lup[9][1] = 1; lup[9][2] = 3; lup[9][3] = 2;
     lup[10][0] = 1; lup[10][1] = 3; lup[10][2] = lup[10][3] = -1;
     lup[11][0] = 0; lup[11][1] = 3; lup[11][2] = lup[11][3] = -1;
     lup[12][0] = 0; lup[12][1] = 2; lup[12][2] = lup[12][3] = -1;
@@ -338,7 +338,7 @@ int main()
             pt1[1] = Y[y] + ((3.2-F[rbIndex]) / (F[rtIndex] - F[rbIndex])) * (Y[y+1] - Y[y]); 
           }
             
-          int edge2 = lup[caseId][2*i+1];
+          int edge2 = lup[caseId][(2*i)+1];
           float pt2[2];
           if (edge2 == 0){
             pt2[0] = X[x] + ((3.2-F[lbIndex]) / (F[rbIndex] - F[lbIndex])) * (X[x+1] - X[x]);
