@@ -358,11 +358,10 @@ int main()
                     (f3>isoval) * 8 + 
                     (f2>isoval) * 4 + 
                     (f1>isoval) * 2 + 
-                    (f0>isoval) * 1 + 
-                    )
-      int lup[16] = lookupTable[caseId];
+                    (f0>isoval) * 1 );
+      int *lup = lookupTable[caseId];
       int k = 0;
-      while(edges[k] != -1){
+      while(lup[k] != -1){
         int edge1 = lup[k];
         int edge2 = lup[k+1];
         int edge3 = lup[k+2];
@@ -372,62 +371,81 @@ int main()
         float pts[3][3];
 
         for (int b =0; b < 3; b++){
-          if (edge[b] == 0){
-            pts[b][0] = X[logicalv0[0]] + ((isoval-f0)/(f1-f0)) * (X[logicalv1[0]] - logicalv0[0]);
+          if (edges[b] == 0){
+
+            pts[b][0] = X[logicalv0[0]] + ((isoval-f0)/(f1-f0)) * (X[logicalv1[0]] - X[logicalv0[0]]);
             pts[b][1] = Y[logicalv0[1]];
             pts[b][2] = Z[logicalv0[2]];
+
           }
-          else if (edge[b] == 1){
+          else if (edges[b] == 1){
             pts[b][0] = X[logicalv1[0]];
             pts[b][1] = Y[logicalv1[1]];
             pts[b][2] = Z[logicalv1[2]] + ((isoval - f1)/(f2-f1)) * (Z[logicalv2[2]] - Z[logicalv1[2]]);
           }
-          else if(edge[b] == 2){
-            pts[b][0] = X[logicalv3[0]] + ((isoval-f3)/(f2-f3)) * (X[logicalv2[0]] - logicalv3[0]);
+          else if(edges[b] == 2){
+            pts[b][0] = X[logicalv3[0]] + ((isoval-f3)/(f2-f3)) * (X[logicalv2[0]] - X[logicalv3[0]]);
             pts[b][1] = Y[logicalv3[1]];
             pts[b][2] = Z[logicalv3[2]];
           }
-          else if (edge[b] == 3){
+          else if (edges[b] == 3){
             pts[b][0] = X[logicalv0[0]];
             pts[b][1] = Y[logicalv0[1]];
             pts[b][2] = Z[logicalv0[2]] + ((isoval - f0)/(f3-f0)) * (Z[logicalv3[2]] - Z[logicalv0[2]]);
           }
-          else if (edge[b] == 4){
-            pts[b][0] = X[logicalv4[0]] + ((isoval-f4)/(f5-f4)) * (X[logicalv5[0]] - logicalv4[0]);
+          else if (edges[b] == 4){
+            pts[b][0] = X[logicalv4[0]] + ((isoval-f4)/(f5-f4)) * (X[logicalv5[0]] - X[logicalv4[0]]);
             pts[b][1] = Y[logicalv4[1]];
             pts[b][2] = Z[logicalv4[2]];
           }
-          else if (edge[b] == 5){
+          else if (edges[b] == 5){
             pts[b][0] = X[logicalv5[0]];
             pts[b][1] = Y[logicalv5[1]];
             pts[b][2] = Z[logicalv5[2]] + ((isoval - f5)/(f6-f5)) * (Z[logicalv6[2]] - Z[logicalv5[2]]);
           }
-          else if (edge[b] == 6){
-            pts[b][0] = X[logicalv7[0]] + ((isoval-f7)/(f6-f7)) * (X[logicalv6[0]] - logicalv7[0]);
+          else if (edges[b] == 6){
+            pts[b][0] = X[logicalv7[0]] + ((isoval-f7)/(f6-f7)) * (X[logicalv6[0]] - X[logicalv7[0]]);
             pts[b][1] = Y[logicalv7[1]];
             pts[b][2] = Z[logicalv7[2]];
           }
-          else if (edge[b] == 7){
+          else if (edges[b] == 7){
             pts[b][0] = X[logicalv4[0]];
             pts[b][1] = Y[logicalv4[1]];
             pts[b][2] = Z[logicalv4[2]] + ((isoval - f4)/(f7-f4)) * (Z[logicalv7[2]] - Z[logicalv4[2]]);
           }
-          else if (edge[b] == 8){
+          else if (edges[b] == 8){
             pts[b][0] = X[logicalv0[0]];
             pts[b][1] = Y[logicalv0[1]] + ((isoval-f0)/(f4-f0)) * (Y[logicalv4[1]] - Y[logicalv0[1]]);
             pts[b][2] = Z[logicalv0[2]];
           }
-          else if (edge[b] == 9){
+          else if (edges[b] == 9){
             pts[b][0] = X[logicalv1[0]];
             pts[b][1] = Y[logicalv1[1]] + ((isoval-f1)/(f5-f1)) * (Y[logicalv5[1]] - Y[logicalv1[1]]);
             pts[b][2] = Z[logicalv1[2]];
           }
-          else if (edge[b] == 10){
+          else if (edges[b] == 10){
             pts[b][0] = X[logicalv3[0]];
             pts[b][1] = Y[logicalv3[1]] + ((isoval-f3)/(f7-f3)) * (Y[logicalv7[1]] - Y[logicalv3[1]]);
             pts[b][2] = Z[logicalv3[2]];
           }
+          else if (edges[b] == 11){
+            pts[b][0] = X[logicalv2[0]];
+            pts[b][1] = Y[logicalv2[1]] + ((isoval-f2)/(f6-f2)) * (Y[logicalv6[1]] - Y[logicalv2[1]]);
+            pts[b][2] = Z[logicalv2[2]];
+          }
+
+          if (b==2){
+            // if (i == 4771){
+            //   printf("%f,%f,%f\n %f,%f,%f\n %f,%f,%f\n", pts[0][0],pts[0][1], pts[0][2],
+            //          pts[1][0],pts[1][1], pts[1][2],
+            //          pts[2][0],pts[2][1], pts[2][2]);
+            // }
+                  tl.AddTriangle(pts[0][0],pts[0][1], pts[0][2],
+                     pts[1][0],pts[1][1], pts[1][2],
+                     pts[2][0],pts[2][1], pts[2][2]);
+          }
         }
+
       }
          // YOUR CODE GOES HERE
          // My advice:
