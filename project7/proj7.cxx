@@ -322,6 +322,78 @@ int main()
     float isoval = 3.2;
     for (int i = 0 ; i < ncells ; i++)
     {
+      int idx[3];
+      GetLogicalCellIndex(idx,i,dims);
+      int logicalv0[3] = {idx[0], idx[1], idx[2]};
+      int logicalv1[3] = {idx[0]+1, idx[1], idx[2]};
+      int logicalv2[3] = {idx[0]+1, idx[1], idx[2]+1};
+      int logicalv3[3] = {idx[0], idx[1], idx[2]+1};
+      int logicalv4[3] = {idx[0], idx[1]+1, idx[2]};
+      int logicalv5[3] = {idx[0]+1, idx[1]+1, idx[2]};
+      int logicalv6[3] = {idx[0]+1, idx[1]+1, idx[2]+1};
+      int logicalv7[3] = {idx[0], idx[1]+1, idx[2]+1};
+
+      int indexv0 = GetPointIndex(logicalv0, dims);
+      int indexv1 = GetPointIndex(logicalv1, dims);
+      int indexv2 = GetPointIndex(logicalv2, dims);
+      int indexv3 = GetPointIndex(logicalv3, dims);
+      int indexv4 = GetPointIndex(logicalv4, dims);
+      int indexv5 = GetPointIndex(logicalv5, dims);
+      int indexv6 = GetPointIndex(logicalv6, dims);
+      int indexv7 = GetPointIndex(logicalv7, dims);
+
+      float f0 = F[indexv0];
+      float f1 = F[indexv1];
+      float f2 = F[indexv2];
+      float f3 = F[indexv3];
+      float f4 = F[indexv4];
+      float f5 = F[indexv5];
+      float f6 = F[indexv6];
+      float f7 = F[indexv7];
+
+      int caseId = ((f7>isoval) * 128 + 
+                    (f6>isoval) * 64 + 
+                    (f5>isoval) * 32 + 
+                    (f4>isoval) * 16 + 
+                    (f3>isoval) * 8 + 
+                    (f2>isoval) * 4 + 
+                    (f1>isoval) * 2 + 
+                    (f0>isoval) * 1 + 
+                    )
+      int lup[16] = lookupTable[caseId];
+      int k = 0;
+      while(edges[k] != -1){
+        int edge1 = lup[k];
+        int edge2 = lup[k+1];
+        int edge3 = lup[k+2];
+        int edges[3] = {edge1, edge2, edge3};
+
+        k+=3;
+        float pts[3][3];
+
+        for (int b =0; b < 3; b++){
+          if (edge[b] == 0){
+            pts[b][0] = X[logicalv0[0]] + ((isoval-f0)/(f1-f0)) * (X[logicalv1[0]] - logicalv0[0]);
+            pts[b][1] = Y[logicalv0[1]];
+            pts[b][2] = Z[logicalv0[2]];
+          }
+          else if (edge[b] == 1){
+            pts[b][0] = X[logicalv1[0]];
+            pts[b][1] = Y[logicalv1[1]];
+            pts[b][2] = Z[logicalv1[2]] + ((isoval - f1)/(f2-f1)) * (Z[logicalv2[2]] - Z[logicalv1[2]]);
+          }
+          else if(edge[b] == 2){
+            pts[b][0] = X[logicalv3[0]] + ((isoval-f3)/(f2-f3)) * (X[logicalv2[0]] - logicalv3[0]);
+            pts[b][1] = Y[logicalv3[1]];
+            pts[b][2] = Z[logicalv3[2]];
+          }
+          else if (edge[b] == 3){
+            pts[b][0] = X[logicalv0[0]];
+            pts[b][1] = Y[logicalv0[1]];
+            pts[b][2] = Z[logicalv0[2]] + ((isoval - f0)/(f3-f0)) * (Z[logicalv3[2]] - Z[logicalv0[2]]);
+          }
+        }
+      }
          // YOUR CODE GOES HERE
          // My advice:
          //   (1) collect all of the info about a cell (8 vertex locations, 8 field values) and put them in arrays you can use
