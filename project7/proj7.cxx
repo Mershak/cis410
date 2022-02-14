@@ -392,6 +392,41 @@ int main()
             pts[b][1] = Y[logicalv0[1]];
             pts[b][2] = Z[logicalv0[2]] + ((isoval - f0)/(f3-f0)) * (Z[logicalv3[2]] - Z[logicalv0[2]]);
           }
+          else if (edge[b] == 4){
+            pts[b][0] = X[logicalv4[0]] + ((isoval-f4)/(f5-f4)) * (X[logicalv5[0]] - logicalv4[0]);
+            pts[b][1] = Y[logicalv4[1]];
+            pts[b][2] = Z[logicalv4[2]];
+          }
+          else if (edge[b] == 5){
+            pts[b][0] = X[logicalv5[0]];
+            pts[b][1] = Y[logicalv5[1]];
+            pts[b][2] = Z[logicalv5[2]] + ((isoval - f5)/(f6-f5)) * (Z[logicalv6[2]] - Z[logicalv5[2]]);
+          }
+          else if (edge[b] == 6){
+            pts[b][0] = X[logicalv7[0]] + ((isoval-f7)/(f6-f7)) * (X[logicalv6[0]] - logicalv7[0]);
+            pts[b][1] = Y[logicalv7[1]];
+            pts[b][2] = Z[logicalv7[2]];
+          }
+          else if (edge[b] == 7){
+            pts[b][0] = X[logicalv4[0]];
+            pts[b][1] = Y[logicalv4[1]];
+            pts[b][2] = Z[logicalv4[2]] + ((isoval - f4)/(f7-f4)) * (Z[logicalv7[2]] - Z[logicalv4[2]]);
+          }
+          else if (edge[b] == 8){
+            pts[b][0] = X[logicalv0[0]];
+            pts[b][1] = Y[logicalv0[1]] + ((isoval-f0)/(f4-f0)) * (Y[logicalv4[1]] - Y[logicalv0[1]]);
+            pts[b][2] = Z[logicalv0[2]];
+          }
+          else if (edge[b] == 9){
+            pts[b][0] = X[logicalv1[0]];
+            pts[b][1] = Y[logicalv1[1]] + ((isoval-f1)/(f5-f1)) * (Y[logicalv5[1]] - Y[logicalv1[1]]);
+            pts[b][2] = Z[logicalv1[2]];
+          }
+          else if (edge[b] == 10){
+            pts[b][0] = X[logicalv3[0]];
+            pts[b][1] = Y[logicalv3[1]] + ((isoval-f3)/(f7-f3)) * (Y[logicalv7[1]] - Y[logicalv3[1]]);
+            pts[b][2] = Z[logicalv3[2]];
+          }
         }
       }
          // YOUR CODE GOES HERE
